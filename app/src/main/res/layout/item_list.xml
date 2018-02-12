@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="16dp"
+    >
+
+    <TextView
+        android:id="@+id/item_list_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_circle"
+        android:layout_marginRight="16dp"
+        />
+
+    <TextView
+        android:id="@+id/item_list_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Titulo"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:layout_toRightOf="@id/item_list_circle"
+        />
+
+    <TextView
+        android:id="@+id/item_list_subtitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subtitulo"
+        android:layout_below="@id/item_list_titulo"
+        android:layout_toRightOf="@id/item_list_circle"
+        />
+
+    <TextView
+        android:id="@+id/item_list_detalle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Detalle"
+        android:layout_below="@id/item_list_subtitulo"
+        android:layout_toRightOf="@id/item_list_circle"
+        />
+
+
+</RelativeLayout>

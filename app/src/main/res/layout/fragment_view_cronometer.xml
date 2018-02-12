@@ -1,0 +1,83 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center"
+    tools:context="cl.gestiona.estimotebluesep2017.ViewCronometer">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/txthora"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="00"
+        android:textSize="50dp"
+
+        />
+    <TextView
+        android:id="@+id/dos1"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text=":"
+        android:textSize="50dp"
+
+        />
+    <TextView
+        android:id="@+id/txtmin"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="00"
+        android:textSize="50dp"
+
+        />
+    <TextView
+        android:id="@+id/dos2"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text=":"
+        android:textSize="50dp"
+
+        />
+
+    <TextView
+        android:id="@+id/txtseg"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="00"
+        android:textSize="50dp"
+
+        />
+
+    <TextView
+        android:id="@+id/dos3"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text=":"
+        android:textSize="50dp"
+
+        />
+
+    <TextView
+        android:id="@+id/txtmil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="50dp"
+
+        />
+
+    <TextView
+        android:id="@+id/tiempofinal"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>
