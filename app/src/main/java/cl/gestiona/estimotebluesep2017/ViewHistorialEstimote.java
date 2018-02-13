@@ -4,6 +4,7 @@ package cl.gestiona.estimotebluesep2017;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +31,6 @@ public class ViewHistorialEstimote extends Fragment {
 
     public ViewHistorialEstimote() {
         // Required empty public constructor
-
-        crud = MainActivity.crud;
     }
 
 
@@ -39,7 +38,7 @@ public class ViewHistorialEstimote extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        crud = new HistorialCrud(getActivity());
         View view = inflater.inflate(R.layout.fragment_view_historial_estimote, container, false);
         listView = (ListView) view.findViewById(R.id.listviewHistorial);
         AdaptadorListView adapter = new AdaptadorListView(getContext(), crud.getHistorialList());
@@ -63,5 +62,17 @@ public class ViewHistorialEstimote extends Fragment {
         super.onResume();
         AdaptadorListView adapter = new AdaptadorListView(getContext(), crud.getHistorialList());
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (this.isVisible()){
+            if (!isVisibleToUser){
+                Log.e("INFO","Fragmento Historial ya no esta visible se puede destruir un servicio");
+            }else{
+                Log.e("INFO","Fragmento Historial  esta visible se puede iniciar un servicio");
+            }
+        }
     }
 }

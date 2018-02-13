@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 
 import android.os.Build;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -40,6 +41,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import cl.gestiona.estimotebluesep2017.model.Cronometro;
@@ -66,15 +68,30 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;
     private NavigationView navigation;
     //CRUD
-    public static HistorialCrud crud;
+    public HistorialCrud crud;
     //TASK CRONOMETRO
     public static Cronometro cronometro;
     //TIEMPO QUE DEMORO
     public String tiempo;
+    //SONIDO
+    public TextToSpeech textToSpeech;
+    public int resultTextToSpeech;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        textToSpeech = new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS){
+                    resultTextToSpeech = textToSpeech.setLanguage(new Locale("spa","MEX"));
+                }else{
+                    toast("no soportado");
+                }
+            }
+        });
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         pager = (ViewPager) findViewById(R.id.pager);
         tabs = (TabLayout) findViewById(R.id.tabs);
@@ -111,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
             }else{
                 System.out.println("no");
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 225);
-
             }
         }
         configEstimote();
@@ -120,8 +136,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
     }
 
 
@@ -187,6 +201,7 @@ public class MainActivity extends AppCompatActivity {
         manager.setMonitoringListener(new BeaconManager.BeaconMonitoringListener() {
             @Override
             public void onEnteredRegion(BeaconRegion beaconRegion, List<Beacon> beacons) {
+
                 /*showNotification(
                         "Your gate closes in 47 minutes.",
                         "Current security wait time is 15 minutes, "
@@ -218,10 +233,13 @@ public class MainActivity extends AppCompatActivity {
                         viewCronometer.txtfinal.setText(tiempo);
                     }
                 }
+                Log.e("INFO", "ENTRANDO EN LA REGION");
+                dialogo("Conectado a estimote");
             }
 
             @Override
             public void onExitedRegion(BeaconRegion beaconRegion) {
+                dialogo("Saliendo de la region, Cronómetro activado");
                 // Log.e("INFO INFO","----------EXIT");
                 // txt.setText("Has salido de la zona de Ice");
                 if (viewHistorialEstimote!=null && viewStateEstimote!=null) {
@@ -245,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
                         cronometro.execute();
                     }
                 }
+                Log.e("INFO", "SALIENDO DE LA REGION");
             }
         });
     }
@@ -347,4 +366,16 @@ public class MainActivity extends AppCompatActivity {
     public void toast(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
+
+    private void dialogo(String dialogo){
+        if (textToSpeech!=null){
+            textToSpeech.stop();
+        }
+        if (resultTextToSpeech == TextToSpeech.LANG_MISSING_DATA || resultTextToSpeech==TextToSpeech.LANG_NOT_SUPPORTED){
+            toast("no soportado event");
+        }else{
+            textToSpeech.speak(dialogo, TextToSpeech.QUEUE_FLUSH, null);
+        }
+    }
+
 }

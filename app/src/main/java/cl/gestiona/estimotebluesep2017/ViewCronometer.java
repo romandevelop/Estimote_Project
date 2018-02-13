@@ -53,4 +53,16 @@ public class ViewCronometer extends Fragment {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (this.isVisible()){
+            if (!isVisibleToUser){
+                Log.e("INFO","Fragmento Cronometeer ya no esta visible se puede destruir un servicio");
+            }else{
+                Log.e("INFO","Fragmento Cronometeer  esta visible se puede iniciar un servicio");
+            }
+        }
+    }
 }
